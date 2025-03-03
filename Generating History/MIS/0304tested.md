@@ -14,7 +14,7 @@
 
 We tried to start a conversation between ChatGPT and DeepSeek, so that they may generate a better solution. Here's what they finally come up with:
 ```python
-def get_heatmap_mis(
+	def get_heatmap_mis(
         self, xt: Tensor, edges_feature: Tensor, mask: Tensor, t: Tensor
     ) -> Tensor:
         B, N = xt.shape
@@ -58,6 +58,10 @@ def get_heatmap_mis(
         undetermined_scores = torch.where(undetermined, blended, torch.tensor(-1e9, device=device))
         return torch.where(mask, xt, torch.softmax(undetermined_scores, dim=1))
 ```
+
+> **Prompt:**
+>
+> Now be aware that you are going to have a conversation with ChatGPT on this algorithm. I hope that after this conversation, you both will come up with a better algorithm that imitates the GNN. I will copy all of your output and directly paste them as the imput of the ChatGPT. Please give out your response from now, and end the conversation when you think that nothing can be furtherly done.
 
 This achieves **(17.602, 20.158, 12.559192090607825, 6.399434448292743)** result. Not the best, and the middle algorithm during the conversation did not improve greatly, ranging around 12 and 13. 
 
