@@ -369,7 +369,7 @@ def get_heatmap_mis(
     
     # Compute a penalty for each node based on the number of selected neighbors.
     # For each node, summing over its neighbors gives higher penalty for nodes with many conflicts.
-    penalty = torch.matmul(edges_feature, selected.float())  # (B, N)
+    penalty = torch.matmul(edges_feature, selected.float().unsqueeze(-1)).squeeze(-1)  # (B, N)
     
     # Use the timestep to modulate the influence of the structural score vs. the current (noisy) state.
     # Here we assume t is normalized (e.g., in [0,1]) where t near 1 is early (more noise) and near 0 is later.
@@ -389,7 +389,10 @@ def get_heatmap_mis(
     return new_heatmap
 ```
 
+**RESULT** (16.14, 20.158, **19.78314967891324**, 6.831044059006039)
+
 ## DeepSeek-R1
+
 ```python
 import torch
 from torch import Tensor
